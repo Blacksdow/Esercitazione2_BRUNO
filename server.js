@@ -51,13 +51,23 @@ let server = http.createServer(function(req, res){
             ,{});
             break;
         
+        case "/q1":
+            //Indica gli utenti che sono residenti a Fossano
+            find(res, "utenti", {residenza:"Fossano"}, {});
+            break;
+
+        case "/q2":
+            // Indica gli utenti il cui nome iniziano con C e L con anni superiori a 50.
+            find(res, "utenti", {nome:/^[CL]/, anni:{$gt:50}}, {});
+            break;
+
         default:
             json = {cod:-1, desc:"Nessuna query trovata con quel nome"};
             res.end(JSON.stringify(json));
     }
 });
 
-server.listen(8888, "127.0.0.1");
+server.listen(8890, "127.0.0.1");
 console.log("Il server è in ascolto sulla porta 8888");
 
 function creaConnessione(nomeDb, response, callback){
